@@ -4,72 +4,39 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial;background:#000;color:#fff;overflow-x:hidden;position:relative}
-.bg-animation{
-position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;
-background:radial-gradient(circle at 20% 30%, #332500 0%, #000 60%),
-radial-gradient(circle at 80% 80%, #1a1200 0%, #000 60%);
+body{background:#000;color:#fff;font-family:Arial;overflow-x:hidden}
+.glitch-bg{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:#000}
+.glitch-bg::before,.glitch-bg::after{
+content:'';position:absolute;top:0;left:0;width:100%;height:100%;
+background:repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,215,0,0.03) 2px, rgba(255,215,0,0.03) 4px);
+animation:glitchMove 0.3s infinite;
 }
-.particle{
-position:absolute;width:4px;height:4px;background:#FFD700;border-radius:50%;
-box-shadow:0 0 10px #FFD700;
-animation:float 8s infinite linear;
-}
-@keyframes float{
-0%{transform:translateY(100vh) translateX(0) scale(0);opacity:0}
-10%{opacity:1}
-90%{opacity:1}
-100%{transform:translateY(-10vh) translateX(100px) scale(1.5);opacity:0}
-}
-.logo-3d{
-position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) perspective(1000px) rotateY(0deg);
-font-size:200px;opacity:0.03;animation:rotate3d 20s infinite linear;z-index:-1;
-}
-@keyframes rotate3d{
-0%{transform:translate(-50%,-50%) perspective(1000px) rotateY(0deg) rotateX(10deg)}
-100%{transform:translate(-50%,-50%) perspective(1000px) rotateY(360deg) rotateX(10deg)}
-}
+.glitch-bg::after{background:linear-gradient(90deg, rgba(255,0,128,0.1), rgba(0,255,255,0.1), rgba(255,255,0,0.1));mix-blend-mode:screen;animation:rgbShift 0.2s infinite}
+@keyframes glitchMove{0%{transform:translate(0)}20%{transform:translate(-2px,2px)}40%{transform:translate(2px,-2px)}60%{transform:translate(-1px,1px)}80%{transform:translate(1px,-1px)}100%{transform:translate(0)}}
+@keyframes rgbShift{0%{transform:translate(0);filter:hue-rotate(0deg)}50%{transform:translate(3px,0);filter:hue-rotate(90deg)}100%{transform:translate(-3px,0);filter:hue-rotate(180deg)}}
 .content{max-width:700px;margin:auto;padding:20px;position:relative;z-index:2}
-.card{border:1px solid #333;background:rgba(17,17,17,0.9);backdrop-filter:blur(10px);padding:22px;border-radius:16px;margin:20px 0;transform:perspective(1000px) rotateX(2deg);transition:0.4s;box-shadow:0 10px 30px rgba(255,215,0,0.1)}
-.card:hover{transform:perspective(1000px) rotateX(0deg) translateY(-5px);box-shadow:0 20px 40px rgba(255,215,0,0.2);border-color:#FFD700}
-.btn{display:block;background:linear-gradient(90deg,#FFD700,#FFA500);color:#000;padding:14px;text-align:center;border-radius:30px;text-decoration:none;font-weight:bold;margin-top:12px;transform:translateZ(20px);box-shadow:0 5px 15px rgba(255,215,0,0.3)}
-.locked{background:rgba(34,34,34,0.8);padding:12px;border-radius:8px;margin-top:10px;border-left:4px solid #FFD700;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.7}}
-a{color:#FFD700;text-decoration:none}
+.card{background:rgba(15,15,15,0.9);border:1px solid #333;border-radius:16px;padding:22px;margin:20px 0;position:relative;overflow:hidden;animation:cardGlitch 4s infinite}
+@keyframes cardGlitch{0%,90%,100%{transform:translate(0);box-shadow:0 10px 30px rgba(255,215,0,0.1)}91%{transform:translate(-2px,1px);box-shadow:-3px 0 #ff0080, 3px 0 #00ffff}92%{transform:translate(2px,-1px)}93%{transform:translate(0)}}
+.btn{display:block;background:#FFD700;color:#000;padding:14px;text-align:center;border-radius:30px;text-decoration:none;font-weight:bold;margin-top:12px;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);animation:shine 2.5s infinite}
+@keyframes shine{0%{left:-100%}100%{left:100%}}
+.locked{background:#222;padding:12px;border-radius:8px;margin-top:10px;border-left:4px solid #FFD700;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+a{color:#FFD700}
+.scanline{position:fixed;top:0;left:0;width:100%;height:2px;background:rgba(255,215,0,0.5);box-shadow:0 0 10px #FFD700;animation:scan 3s linear infinite;z-index:10}
+@keyframes scan{0%{top:0}100%{top:100%}}
 </style>
 </head><body>
-<div class="bg-animation" id="bg"></div>
-<div class="logo-3d">🎓</div>
-
+<div class="glitch-bg"></div>
+<div class="scanline"></div>
 <div class="content">
 <a href="index.html">← Back Home</a>
-<h1 style="color:#FFD700;margin:20px 0;text-shadow:0 0 20px rgba(255,215,0,0.5)">My Courses</h1>
-
+<h1 style="color:#FFD700;margin:20px 0;text-shadow:2px 0 #ff0080, -2px 0 #00ffff">My Courses</h1>
 <div class="card">
 <h2>Zero to First Sale</h2>
-<p style="opacity:0.8;margin:10px 0">For beginners with 5k-10k capital. How to pick product, create WhatsApp funnel, close first sale.</p>
-<p><b>Modules:</b> Mindset • Product Selection • WhatsApp Funnel • Closing</p>
-<a class="btn" href="enroll.html?course=zero">Open Course →</a>
-<div class="locked">🔒 Click Open to unlock access</div>
-</div>
-
-<div class="card">
-<h2>Website & Ranking Course</h2>
-<p style="opacity:0.6">How to build site like this wey dey rank for Google.</p>
-<a class="btn" style="background:#222;color:#666">Locked - Coming Soon</a>
+<p style="opacity:0.8;margin:10px 0">For beginners with 5k-10k capital.</p>
+<a class="btn" href="enroll.html">Open Course →</a>
+<div class="locked">🔒 Click Open to unlock access - Payment go show</div>
 </div>
 </div>
-
-<script>
-// Create floating gold particles
-const bg=document.getElementById('bg');
-for(let i=0;i<25;i++){
-let p=document.createElement('div');
-p.className='particle';
-p.style.left=Math.random()*100+'%';
-p.style.animationDelay=Math.random()*8+'s';
-p.style.animationDuration=(5+Math.random()*5)+'s';
-bg.appendChild(p);
-}
-</script>
 </body></html>
