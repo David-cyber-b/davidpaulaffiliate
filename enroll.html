@@ -1,91 +1,18 @@
-<!DOCTYPE html>
-<html><head>
-<title>Unlock Course - Pay</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;font-family:Arial;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:15px}
-.bg{position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at top,#332500,#000 70%)}
-.box{width:100%;max-width:500px;background:rgba(17,17,17,0.98);border:1px solid #333;padding:28px;border-radius:20px;text-align:center;box-shadow:0 0 50px rgba(255,215,0,0.15)}
-.price{font-size:46px;color:#FFD700;font-weight:900;margin:10px 0}
-.bank-card{background:#111;border:1px dashed #FFD700;border-radius:12px;padding:16px;margin:14px 0;text-align:left}
-.row{display:flex;justify-content:space-between;align-items:center;margin:8px 0;font-size:14px}
-.row b{color:#FFD700}
-.copy-btn{background:#222;color:#FFD700;border:1px solid #444;padding:4px 10px;border-radius:15px;font-size:11px;cursor:pointer}
-.btn{display:block;padding:16px;border-radius:30px;text-decoration:none;font-weight:bold;margin:10px 0;cursor:pointer;border:none;width:100%;font-size:15px}
-.btn-gold{background:linear-gradient(90deg,#FFD700,#FFA500);color:#000}
-.btn-green{background:#25D366;color:#fff}
-.method{background:#1a1a1a;border-radius:10px;padding:12px;margin:10px 0;text-align:left;font-size:13px;border-left:3px solid #FFD700}
-.upload-box{border:2px dashed #333;border-radius:12px;padding:15px;margin:15px 0;background:#0f0f0f}
-input[type=file]{display:none}
-.preview{margin-top:10px;max-width:100%;max-height:180px;border-radius:8px;display:none}
-a{color:#FFD700}
-</style>
-</head><body>
-<div class="bg"></div>
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pay ₦5,000 - Unlock Course</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#000;color:#fff;font-family:Arial;display:flex;justify-content:center;padding:15px}.box{width:100%;max-width:480px;background:#111;border:1px solid #333;padding:24px;border-radius:20px}.price{font-size:42px;color:#FFD700;text-align:center;font-weight:900;margin:10px 0}.card{background:linear-gradient(135deg,#FFD700,#FFA500);color:#000;border-radius:14px;padding:18px;margin:15px 0;text-align:center}.card b{font-size:22px}.btn{width:100%;padding:16px;border-radius:30px;font-weight:bold;border:none;cursor:pointer;margin-top:12px;font-size:16px}.btn-gold{background:linear-gradient(90deg,#FFD700,#FFA500);color:#000}.input{width:100%;padding:14px;border-radius:10px;border:1px solid #444;background:#000;color:#fff;margin:8px 0}</style></head><body>
 <div class="box">
-<div style="font-size:45px">🔒</div>
-<h2 style="color:#FFD700">Pay to Unlock</h2>
-<p style="opacity:0.7;font-size:13px">Zero to First Sale - Lifetime</p>
+<h2 style="color:#FFD700;text-align:center">Pay ₦5,000 to Unlock</h2>
 <div class="price">₦5,000</div>
-
-<div class="bank-card">
-<h4 style="color:#FFD700;margin-bottom:8px">📲 PAYMENT METHODS</h4>
-<div class="row"><span>Bank:</span><b>Palmpay</b></div>
-<div class="row"><span>Account:</span><b id="acct">7026558433</b> <button class="copy-btn" onclick="copyT('acct')">Copy</button></div>
-<div class="row"><span>Name:</span><b>Ekechukwu Vincent</b></div>
+<div class="card"><b>PalmPay: 7026558433</b><br>Ekechukwu Vincent<br><small>Transfer exactly ₦5,000</small></div>
+<div style="border:1px dashed #555;border-radius:12px;padding:14px">
+<b>📤 Upload Transfer Receipt</b><br><br>
+<input type="file" id="file" accept="image/*"><p id="fname" style="color:#FFD700;font-size:12px;margin-top:6px"></p>
+<input id="name" class="input" placeholder="Your Full Name">
 </div>
-
-<div class="method"><b>1. Bank App / Card:</b> Transfer ₦5000 to Palmpay 7026558433. You fit use debit card inside your bank app.</div>
-<div class="method" style="border-left-color:#25D366"><b>2. USSD (No Internet):</b> Dial <b id="ussd" style="color:#FFD700">*861*5000*7026558433#</b> <button class="copy-btn" onclick="copyT('ussd')">Copy</button></div>
-
-<div class="upload-box">
-<p style="font-size:14px">📤 <b>Upload Payment Receipt</b> (Required to unlock)</p>
-<label for="receipt" style="background:#FFD700;color:#000;padding:8px 20px;border-radius:20px;font-size:13px;font-weight:bold;display:inline-block;margin-top:8px;cursor:pointer">Choose Receipt</label>
-<input type="file" id="receipt" accept="image/*">
-<img id="preview" class="preview">
-<p id="fileName" style="font-size:12px;color:#FFD700;margin-top:8px"></p>
+<button class="btn btn-gold" onclick="go()">✅ I Have Paid - Unlock Now</button>
+<p style="font-size:11px;color:#aaa;text-align:center;margin-top:10px">You will be redirected to WhatsApp to confirm, then course opens.</p>
 </div>
-
-<button class="btn btn-gold" onclick="unlockCourse()">✅ I Have Paid - Unlock Course Now</button>
-<a href="courses.html" style="font-size:12px;display:block;margin-top:15px">← Back to Courses</a>
-</div>
-
 <script>
-let hasReceipt=false;
-let receiptName="";
-function copyT(id){navigator.clipboard.writeText(document.getElementById(id).innerText);alert("Copied!");}
-
-document.getElementById('receipt').addEventListener('change',function(){
- const file=this.files[0];
- if(file){
-  document.getElementById('fileName').innerText="Selected: "+file.name;
-  document.getElementById('preview').src=URL.createObjectURL(file);
-  document.getElementById('preview').style.display="block";
-  hasReceipt=true;
-  receiptName=file.name;
- }
-});
-
-function unlockCourse(){
- if(!hasReceipt){
-  alert("please upload your payment receipt first (screenshot of alert) to unlock!");
-  return;
- }
- // 1. Save access for this device
- localStorage.setItem('paid_zero_to_first_sale','true');
- localStorage.setItem('paid_date', new Date().toLocaleString());
- localStorage.setItem('receipt_name', receiptName);
-
- // 2. Send WhatsApp to you for verification
- let msg="Hello Vincent 👋%0AI paid N5000 for Zero to First Sale.%0APayment to Palmpay 7026558433%0AMy Name: [MY NAME]%0AReceipt: "+receiptName+"%0A%0APlease confirm. I don get auto-access to course, I go attach receipt now.";
- window.open("https://wa.me/2347026558433?text="+msg, "_blank");
-
- // 3. Auto open course straight
- setTimeout(()=>{
-  // CHANGE THIS LINK TO YOUR REAL COURSE CONTENT PAGE
-  window.location.href="course-content.html";
- },1000);
-}
-</script>
-</body></html>
+let r="No file";document.getElementById('file').addEventListener('change',function(){r=this.files[0].name;document.getElementById('fname').innerText=r});
+function go(){if(!document.getElementById('file').files[0]){alert("Upload receipt first");return}let n=document.getElementById('name').value||"Customer";localStorage.setItem('paid_zero_to_first_sale','true');localStorage.setItem('paid_date',new Date().toLocaleString());let m="NEW PAYMENT%0AName:"+n+"%0AAmt:5000%0AReceipt:"+r+"%0ACheck PalmPay 7026558433";window.open("https://wa.me/2347026558433?text="+m,"_blank");setTimeout(()=>{location.href="course-content.html"},1000)}
+</script></body></html>
