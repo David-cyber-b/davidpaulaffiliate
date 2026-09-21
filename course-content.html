@@ -1,0 +1,16 @@
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Course Content</title>
+<style>body{background:#000;color:#fff;font-family:Arial;padding:20px;text-align:center}.video{background:#111;padding:20px;border-radius:15px;margin:15px 0;border:1px solid #333}</style>
+</head><body>
+<script>
+if(localStorage.getItem('paid_zero_to_first_sale')!=='true'){
+ alert("Abeg pay first!");
+ window.location.href="enroll.html";
+}
+</script>
+<h1 style="color:#FFD700">🎉 Welcome! Zero to First Sale</h1>
+<p>Access granted - Paid on <span id="date"></span></p>
+<div class="video"><h3>Module 1: Introduction</h3><p>Put your YouTube link or video here</p></div>
+<div class="video"><h3>Module 2: Finding Products</h3><p>Put your content here</p></div>
+<a href="https://wa.me/2347026558433" style="color:#25D366">Need help? Chat Vincent 0702 655 8433</a>
+<script>document.getElementById('date').innerText=localStorage.getItem('paid_date');</script>
+</body></html>
